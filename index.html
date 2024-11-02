@@ -1,136 +1,197 @@
-☐ <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EXC Coin Game</title>
-  <style>
-    body {
-      background-color: navy;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    .header {
-      margin-top: 20px;
-    }
-    .score-level {
-      display: flex;
-      justify-content: space-around;
-      font-size: 1.2em;
-      margin-bottom: 20px;
-    }
-    .game-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-    #image-container {
-      width: 200px;
-      height: 200px;
-      border: 2px solid #00f;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3em;
-    }
-    .buttons {
-      display: flex;
-      gap: 20px;
-      margin-top: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      background-color: #00f;
-      color: white;
-    }
-    .referral-section {
-      margin-top: 20px;
-      font-size: 0.9em;
-    }
-    .falling-emoji {
-      position: absolute;
-      font-size: 2em;
-      animation: fall 2s linear;
-      top: -50px;
-    }
-    @keyframes fall {
-      from { top: -50px; opacity: 1; }
-      to { top: 100vh; opacity: 0; }
-    }
-  </style>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HTML</title>
+  
+  <!-- HTML -->
+  
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <p>💡ELECTRIC XCRYPTO💡</p>
+  <!-- Project -->
+  <script src="main.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXC Coin</title>
+    <style>
+        body {
+            background-color: navy;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #game-container {
+            margin-top: 50px;
+        }
+        #score, #level {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        #earn, #wallet {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: dodgerblue;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #referral-icon {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: gray;
+            color: white;
+            display: inline-block;
+            font-size: 18px;
+            cursor: default;
+            border-radius: 5px;
+        }
+        #emoji-box {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+            background-color: transparent;
+            position: relative;
+        }
+        .falling-emoji {
+            position: fixed;
+            font-size: 30px;
+            top: -50px;
+            animation: fall linear;
+        }
+        @keyframes fall {
+            to {
+                top: 100vh;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <h1 class="header">EXC Coin</h1>
-  <div class="score-level">
-    <span>Score: <span id="score">0</span></span>
-    <span>Level: <span id="level">1</span></span>
-  </div>
-
-  <div class="game-container">
-    <div id="image-container">💡</div>
-
-    <div class="buttons">
-      <button onclick="earnPoints()">EARN</button>
-      <button onclick="connectWallet()">Connect Wallet</button>
+    <div id="game-container">
+        <h1>💡🚀💡🔜</h1>
+        <div id="score-level">
+            <span id="score">Score: 0</span>
+            <span id="level">Level: 1</span>
+        </div>
+        <div id="emoji-box">💡💡💡💡💡💡
+        💡💡💡</div>
+        <button id="earn">👉🏻EARN</button>
+        <button id="wallet">Connect Wallet</button>
+        <div id="referral-icon">Referrals: <span id="referral-count">0</span></div>
+        <p id="referral-link"></p>
     </div>
 
-    <div class="referral-section">
-      <button>Referrals (60)</button>
-      <p>Referral Code: <span id="referral-code">https://EXCCOIN.com/?ref=EXC_sjc1hhjh2</span></p>
-    </div>
-  </div>
+    <script>
+        let score = localStorage.getItem("score") ? parseInt(localStorage.getItem("score")) : 0;
+        let level = Math.floor(score / 2000) + 1;
+        let referrals = localStorage.getItem("referrals") ? parseInt(localStorage.getItem("referrals")) : 0;
+        const scoreElement = document.getElementById("score");
+        const levelElement = document.getElementById("level");
+        const referralCountElement = document.getElementById("referral-count");
+        const referralLink = document.getElementById("referral-link");
+        const emojiBox = document.getElementById("emoji-box");
 
-  <script>
-    let score = 0;
-    let level = 1;
+        // تحديث الواجهة
+        function updateUI() {
+            scoreElement.innerText = `EXC: ${score}`;
+            levelElement.innerText = `TICKETS: ${level}`;
+            referralCountElement.innerText = referrals;
+        }
 
-    function earnPoints() {
-      window.location.href = "earn.html"; // قم بتحديث الرابط للصفحة الخاصة بـ EARN
-    }
+        // حفظ النقاط عند الخروج
+        function saveProgress() {
+            localStorage.setItem("score", score);
+            localStorage.setItem("referrals", referrals);
+        }
+        window.addEventListener("beforeunload", saveProgress);
 
-    function connectWallet() {
-      let confirmWallet = confirm("هل تريد ربط محفظتك على Telegram؟");
-      if (confirmWallet) {
-        window.open("https://t.me/your_bot?start=wallet_connect", "_blank"); // قم بتحديث الرابط الخاص بالبوت
-      }
-    }
+        // نظام النقاط عند النقر
+        emojiBox.addEventListener("click", () => {
+            score += (score >= 5000) ? 5 : (score >= 1000) ? 2 : 1;
+            level = Math.floor(score / 2000) + 1;
+            updateUI();
+            dropEmoji(); // تنفيذ الإيموجي المتساقط عند النقر
+        });
 
-    function incrementScore() {
-      score += (score >= 5000) ? 5 : (score >= 1000) ? 2 : 1;
-      document.getElementById("score").innerText = score;
-      
-      // تحديث المستوى بناءً على النقاط
-      level = Math.floor(score / 2000) + 1;
-      document.getElementById("level").innerText = level;
-      
-      // إضافة تأثير الإيموجي المتساقط
-      createFallingEmoji();
-    }
+        // تأثير الإيموجي المتساقط عند النقر فقط (واحد في كل مرة)
+        function dropEmoji() {
+            const fallingEmoji = document.createElement("div");
+            fallingEmoji.innerText = "EXC";
+            fallingEmoji.classList.add("falling-emoji");
+            fallingEmoji.style.left = `${Math.random() * 100}vw`; // موقع عشوائي في العرض
+            fallingEmoji.style.animationDuration = `${2 + Math.random() * 3}s`; // مدة سقوط عشوائية
+            document.body.appendChild(fallingEmoji);
+            
+            // إزالة الإيموجي بعد انتهاء الحركة
+            fallingEmoji.addEventListener("animationend", () => fallingEmoji.remove());
+        }
 
-    function createFallingEmoji() {
-      let emoji = document.createElement("div");
-      emoji.className = "falling-emoji";
-      emoji.innerText = "💡";
-      emoji.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(emoji);
+        // توليد كود الإحالة وتثبيته
+        function generateReferralCode() {
+            let storedCode = localStorage.getItem("referralCode");
+            if (!storedCode) {
+                storedCode = "EXC_" + Math.random().toString(36).substring(2, 10);
+                localStorage.setItem("referralCode", storedCode);
+            }
+            return storedCode;
+        }
 
-      setTimeout(() => {
-        document.body.removeChild(emoji);
-      }, 2000);
-    }
+        // إعداد كود الإحالة الثابت
+        const referralCode = generateReferralCode();
+        referralLink.innerText = `Referral Code: https://EXCCOIN.com/?ref=${referralCode}`;
 
-    document.getElementById("image-container").onclick = incrementScore;
-  </script>
+        // التحقق من استخدام كود الإحالة وتطبيق المكافآت
+        function checkReferral() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refCode = urlParams.get("ref");
+            if (refCode && refCode !== referralCode) {
+                // إضافة النقاط عند استخدام رابط الإحالة
+                score += 200; // اللاعب الجديد يحصل على 200 نقطة
+                referrals += 1;
+                localStorage.setItem("referrals", referrals); // حفظ عدد الإحالات
+                
+                // إضافة النقاط للمحيل
+                let referrerScore = localStorage.getItem(`score_${refCode}`);
+                if (referrerScore) {
+                    referrerScore = parseInt(referrerScore) + 500; // المحيل يحصل على 500 نقطة
+                    localStorage.setItem(`score_${refCode}`, referrerScore);
+                } else {
+                    localStorage.setItem(`score_${refCode}`, 500); // إنشاء وتخزين نقاط للمحيل لأول مرة
+                }
+                updateUI();
+            }
+        }
+        
+        // تحديث النقاط عند دخول لاعب آخر باستخدام كود الإحالة
+        window.addEventListener("load", checkReferral);
+
+        // إعداد زر EARN للانتقال إلى صفحة المهام
+        document.getElementById("earn").addEventListener("click", () => {
+            window.location.href = "earn.html";
+        });
+
+        // ربط المحفظة بمحفظة التليجرام
+        document.getElementById("wallet").addEventListener("click", () => {
+            let connectWallet = confirm("Connect to your Telegram Wallet?");
+            if (connectWallet) {
+                alert("Wallet connected successfully!");
+            }
+        });
+
+        // تحديث الواجهة عند التحميل
+        updateUI();
+    </script>
 </body>
-</html>
+</html>src=""
