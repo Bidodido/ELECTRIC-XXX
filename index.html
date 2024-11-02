@@ -1,0 +1,136 @@
+☐ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXC Coin Game</title>
+  <style>
+    body {
+      background-color: navy;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .header {
+      margin-top: 20px;
+    }
+    .score-level {
+      display: flex;
+      justify-content: space-around;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    #image-container {
+      width: 200px;
+      height: 200px;
+      border: 2px solid #00f;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3em;
+    }
+    .buttons {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #00f;
+      color: white;
+    }
+    .referral-section {
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+    .falling-emoji {
+      position: absolute;
+      font-size: 2em;
+      animation: fall 2s linear;
+      top: -50px;
+    }
+    @keyframes fall {
+      from { top: -50px; opacity: 1; }
+      to { top: 100vh; opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="header">EXC Coin</h1>
+  <div class="score-level">
+    <span>Score: <span id="score">0</span></span>
+    <span>Level: <span id="level">1</span></span>
+  </div>
+
+  <div class="game-container">
+    <div id="image-container">💡</div>
+
+    <div class="buttons">
+      <button onclick="earnPoints()">EARN</button>
+      <button onclick="connectWallet()">Connect Wallet</button>
+    </div>
+
+    <div class="referral-section">
+      <button>Referrals (60)</button>
+      <p>Referral Code: <span id="referral-code">https://EXCCOIN.com/?ref=EXC_sjc1hhjh2</span></p>
+    </div>
+  </div>
+
+  <script>
+    let score = 0;
+    let level = 1;
+
+    function earnPoints() {
+      window.location.href = "earn.html"; // قم بتحديث الرابط للصفحة الخاصة بـ EARN
+    }
+
+    function connectWallet() {
+      let confirmWallet = confirm("هل تريد ربط محفظتك على Telegram؟");
+      if (confirmWallet) {
+        window.open("https://t.me/your_bot?start=wallet_connect", "_blank"); // قم بتحديث الرابط الخاص بالبوت
+      }
+    }
+
+    function incrementScore() {
+      score += (score >= 5000) ? 5 : (score >= 1000) ? 2 : 1;
+      document.getElementById("score").innerText = score;
+      
+      // تحديث المستوى بناءً على النقاط
+      level = Math.floor(score / 2000) + 1;
+      document.getElementById("level").innerText = level;
+      
+      // إضافة تأثير الإيموجي المتساقط
+      createFallingEmoji();
+    }
+
+    function createFallingEmoji() {
+      let emoji = document.createElement("div");
+      emoji.className = "falling-emoji";
+      emoji.innerText = "💡";
+      emoji.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(emoji);
+
+      setTimeout(() => {
+        document.body.removeChild(emoji);
+      }, 2000);
+    }
+
+    document.getElementById("image-container").onclick = incrementScore;
+  </script>
+</body>
+</html>
