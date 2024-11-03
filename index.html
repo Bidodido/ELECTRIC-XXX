@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HTML</title>
+  
+  <!-- HTML -->
+  
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <p>💡ELECTRIC XCRYPTO💡</p>
+  <!-- Project -->
+  <script src="main.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXC Coin Game</title>
+    <style>
+        /* إعدادات التصميم الأساسية */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: navy;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 2em;
+        }
+        .game-container {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 500px;
+        }
+        .score, .level {
+            font-size: 1.2em;
+            display: inline-block;
+            margin: 5px 10px;
+        }
+        .click-box {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f872;
+            border-radius: 10px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .emoji {
+            font-size: 1.5em;
+        }
+        .falling-emoji {
+            position: absolute;
+            font-size: 2em;
+            animation: fall 2s linear;
+        }
+        @keyframes fall {
+            0% { top: -50px; opacity: 1; }
+            100% { top: 150px; opacity: 0; }
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            background-color: #f444;
+        }
+    </style>
+</head>
+<body>
+    <h1>EXC Coin</h1>
+
+    <div class="game-container">
+        <div class="score">EXC <span id="score">0</span></div>
+        <div class="level">TICKETS <span id="level">1</span></div>
+        
+        <!-- مربع النقر -->
+        <div id="click-box" class="click-box">
+            <div id="emojis-container">
+                <span class="emoji">💡</span>
+                <span class="emoji">💡</span>
+                <span class="emoji">💡</span>
+                <span class="emoji">💡</span>
+                <span class="emoji">💡</span>
+                <span class="emoji">💡</span>
+                <span class="emoji">💡</span>
+                <span class="emoji">💡</span>
+                <span class="emoji">💡💡💡💡</span>
+            </div>
+        </div>
+
+        <!-- الأزرار -->
+        <div class="buttons">
+            <button id="earn">EARN</button>
+            <button id="referral">REFERRAL</button>
+            <button id="wallet">Connect Wallet</button>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let level = 1;
+
+        // زيادة النقاط عند النقر
+        document.getElementById("click-box").addEventListener("click", () => {
+            score++;
+            document.getElementById("score").textContent = score;
+
+            // تحديث المستوى
+            if (score >= level * 1000) {
+                level++;
+                document.getElementById("level").textContent = level;
+            }
+
+            // إضافة الإيموجي المتساقط عند النقر
+            const emoji = document.createElement("span");
+            emoji.textContent = "EXC";
+            emoji.className = "falling-emoji";
+            emoji.style.left = `${Math.random() * 100}%`;
+            document.getElementById("click-box").appendChild(emoji);
+
+            // إزالة الإيموجي بعد سقوطه
+            setTimeout(() => emoji.remove(), 2000);
+        });
+
+        // توجيه زر EARN إلى صفحة earn.html
+        document.getElementById("earn").addEventListener("click", () => {
+            window.location.href = "earn.html";
+        });
+
+        // توجيه زر REFERRAL إلى صفحة referrals.html
+        document.getElementById("referral").addEventListener("click", () => {
+            window.location.href = "referrals.html";
+        });
+
+        // توجيه زر Connect Wallet إلى صفحة wallet.html
+        document.getElementById("wallet").addEventListener("click", () => {
+            window.location.href = "wallet.html";
+        });
+
+        // حفظ النقاط والمستوى عند إغلاق الصفحة
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("score", score);
+            localStorage.setItem("level", level);
+        });
+
+        // استرجاع النقاط والمستوى عند العودة
+        window.addEventListener("load", () => {
+            score = parseInt(localStorage.getItem("score") || "0");
+            level = parseInt(localStorage.getItem("level") || "1");
+            document.getElementById("score").textContent = score;
+            document.getElementById("level").textContent = level;
+        });
+    </script>
+</body>
+</html>are you ready 
+</body>
+</html>
+</body>
+</html>🔜....🚀

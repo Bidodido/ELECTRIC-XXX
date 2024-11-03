@@ -1,0 +1,24 @@
+☐ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referrals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Referrals</h1>
+        <p>Use your referral code:</p>
+        <p id="referralCode">YOUR_REFERRAL_CODE</p>
+        <p>Referral Count: <span id="referralCount">0</span></p>
+        <a href="index.html" class="action-button">Back to Game</a>
+    </div>
+    <script>
+        let referralCount = localStorage.getItem('referralCount') ? parseInt(localStorage.getItem('referralCount')) : 0;
+        document.getElementById('referralCount').textContent = referralCount;
+
+        // You can add logic to generate a static referral code here
+    </script>
+</body>
+</html>

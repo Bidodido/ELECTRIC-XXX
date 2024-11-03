@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn Points</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: navy;
+            color: white;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        .task {
+            margin: 15px;
+            padding: 15px;
+            border: 2px solid white;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            background-color: #333;
+        }
+        .task button {
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            color: white;
+            background-color: #555;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .task button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Earn Points</h1>
+    
+    <!-- مهمة تليجرام -->
+    <div class="task">
+        <p>Task 1: Join our Telegram channel</p>
+        <button id="telegramTask">Complete Task</button>
+    </div>
+    
+    <!-- مهمة يوتيوب -->
+    <div class="task">
+        <p>Task 2: Subscribe to our YouTube channel</p>
+        <button id="youtubeTask">Complete Task</button>
+    </div>
+
+    <script>
+        function completeTask(taskId, buttonId) {
+            const lastCompleted = localStorage.getItem(taskId);
+            const currentTime = Date.now();
+            const taskDuration = 8 * 60 * 60 * 1000; // 8 ساعات بالمللي ثانية
+
+            if (!lastCompleted || (currentTime - lastCompleted >= taskDuration)) {
+                // تحديث وقت إتمام المهمة
+                localStorage.setItem(taskId, currentTime);
+                alert("Task completed! You've earned 100 points.");
+                document.getElementById(buttonId).disabled = true;
+            } else {
+                alert("You have already completed this task. Try again later.");
+            }
+        }
+
+        // إعداد مهمة تليجرام
+        document.getElementById("telegramTask").addEventListener("click", function() {
+            completeTask("telegramTaskCompleted", "telegramTask");
+        });
+
+        // إعداد مهمة يوتيوب
+        document.getElementById("youtubeTask").addEventListener("click", function() {
+            completeTask("youtubeTaskCompleted", "youtubeTask");
+        });
+
+        // تعطيل الأزرار إذا كانت المهام مكتملة حديثًا
+        window.onload = function() {
+            const taskDuration = 8 * 60 * 60 * 1000; // 8 ساعات بالمللي ثانية
+            const currentTime = Date.now();
+
+            const telegramLastCompleted = localStorage.getItem("telegramTaskCompleted");
+            if (telegramLastCompleted && (currentTime - telegramLastCompleted < taskDuration)) {
+                document.getElementById("telegramTask").disabled = true;
+            }
+
+            const youtubeLastCompleted = localStorage.getItem("youtubeTaskCompleted");
+            if (youtubeLastCompleted && (currentTime - youtubeLastCompleted < taskDuration)) {
+                document.getElementById("youtubeTask").disabled = true;
+            }
+        };
+    </script>
+</body>
+</html>
